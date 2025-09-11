@@ -1,0 +1,20 @@
+schema: "https://rickandmortyapi.com/graphql"
+documents: "./src/**/*.graphql"
+generates:
+  # Базовые типы схемы
+  ./src/types/base-types.ts:
+    plugins:
+      - "typescript"
+  ./src/:
+    preset: near-operation-file
+    presetConfig:
+      folder: false
+      baseTypesPath: ./types/base-types.ts
+      extension: .generated.ts
+    plugins:
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withHooks: true
+      skipTypename: true
+      useIndexSignature: true

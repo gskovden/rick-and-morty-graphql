@@ -1,0 +1,20 @@
+.locations-page {
+  position: relative;
+  min-height: calc(100vh - 80px);
+  display: grid;
+  place-items: center;
+  min-width: 100vw;
+}
+
+.error-info {
+  color: #fff !important;
+}
+
+.collapse {
+  width: 100%;
+  padding: 40px;
+}
+
+.panel {
+  background-color: #fff;
+}

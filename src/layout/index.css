@@ -1,0 +1,14 @@
+.layout-container {
+  background: #0b1430;
+  padding-top: 80px;
+}
+
+.content {
+  display: grid;
+  place-items: center;
+}
+
+.content-inner{
+  width: 100%;
+  height: 100%;
+}

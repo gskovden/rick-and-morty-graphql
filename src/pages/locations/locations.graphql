@@ -1,0 +1,21 @@
+query GetLocations {
+  locations {
+    results {
+      created
+      dimension
+      id
+      name
+      type
+      residents {
+        created
+        gender
+        id
+        image
+        name
+        species
+        status
+        type
+      }
+    }
+  }
+}

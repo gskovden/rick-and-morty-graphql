@@ -1,0 +1,15 @@
+.main-page {
+  min-height: calc(100dvh - 80px);
+  width: 100vw;
+  background-image: url("/main.jpg");
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  place-items: center;
+}
+
+.title {
+  font-size: 56px;
+  text-align: center;
+  width: 100%;
+}

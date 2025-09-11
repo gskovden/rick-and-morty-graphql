@@ -1,0 +1,15 @@
+.characters-page {
+  width: 100%;
+  gap: 24px;
+  justify-content: center;
+  background-color: #0b1430;
+  margin-bottom: 50px;
+}
+
+.loading-page {
+  position: relative;
+  min-height: calc(100vh - 80px);
+  display: grid;
+  place-items: center;
+  min-width: 100vw;
+}
