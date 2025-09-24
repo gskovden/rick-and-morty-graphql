@@ -26,21 +26,11 @@ const Characters = () => {
 
   return (
     <>
-      <div
-        style={{
-          textAlign: "center",
-          marginBottom: "20px",
-          marginTop: "20px",
-        }}>
+      <div className="create-button-container">
         <Button
-          type="primary"
           size="large"
           onClick={() => setIsModalVisible(true)}
-          style={{
-            background: "#fff",
-            borderColor: "#fff",
-            color: "#000",
-          }}>
+          className="create-button">
           Create New Character
         </Button>
       </div>

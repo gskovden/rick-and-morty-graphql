@@ -4,8 +4,17 @@ import { useCreateCharacterMutation } from "./fake-mutation.generated";
 
 const { Option } = Select;
 
+interface Values {
+  name: string;
+  status: string;
+  species: string;
+  type: string;
+  gender: string;
+  image: string;
+}
 interface CreateNewCharacterModalProps {
   isModalVisible: boolean;
+  // eslint-disable-next-line no-unused-vars
   setIsModalVisible: (isModalVisible: boolean) => void;
 }
 
@@ -16,7 +25,7 @@ const CreateNewCharacterModal = ({
   const [form] = Form.useForm();
   const [createCharacter, { loading: creating }] = useCreateCharacterMutation();
 
-  const handleCreateCharacter = async (values: any) => {
+  const handleCreateCharacter = async (values: Values) => {
     const fallbackImage = `${import.meta.env.BASE_URL}fake-character.webp`;
 
     await createCharacter({
