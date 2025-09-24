@@ -1,0 +1,18 @@
+extend type Mutation {
+  createCharacter(input: CreateCharacterInput!): CreateCharacterPayload!
+}
+
+input CreateCharacterInput {
+  name: String!
+  status: String!
+  species: String!
+  type: String
+  gender: String!
+  image: String
+}
+
+type CreateCharacterPayload {
+  character: Character!
+  success: Boolean!
+  message: String
+}

@@ -1,37 +1,59 @@
-import * as Types from '../../types/base-types';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import * as Types from "../../types/base-types";
 const defaultOptions = {} as const;
-export type GetLocationsQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetLocationsQueryVariables = Types.Exact<{ [key: string]: never }>;
 
-
-export type GetLocationsQuery = { locations?: { results?: Array<{ created?: string | null, dimension?: string | null, id?: string | null, name?: string | null, type?: string | null, residents: Array<{ created?: string | null, gender?: string | null, id?: string | null, image?: string | null, name?: string | null, species?: string | null, status?: string | null, type?: string | null } | null> } | null> | null } | null };
-
+export type GetLocationsQuery = {
+  __typename?: "Query";
+  locations?: {
+    __typename?: "Locations";
+    results?: Array<{
+      __typename?: "Location";
+      created?: string | null;
+      dimension?: string | null;
+      id?: string | null;
+      name?: string | null;
+      type?: string | null;
+      residents: Array<{
+        __typename?: "Character";
+        created?: string | null;
+        gender?: string | null;
+        id?: string | null;
+        image?: string | null;
+        name?: string | null;
+        species?: string | null;
+        status?: string | null;
+        type?: string | null;
+      } | null>;
+    } | null> | null;
+  } | null;
+};
 
 export const GetLocationsDocument = gql`
-    query GetLocations {
-  locations {
-    results {
-      created
-      dimension
-      id
-      name
-      type
-      residents {
+  query GetLocations {
+    locations {
+      results {
         created
-        gender
+        dimension
         id
-        image
         name
-        species
-        status
         type
+        residents {
+          created
+          gender
+          id
+          image
+          name
+          species
+          status
+          type
+        }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetLocationsQuery__
@@ -48,19 +70,57 @@ export const GetLocationsDocument = gql`
  *   },
  * });
  */
-export function useGetLocationsQuery(baseOptions?: Apollo.QueryHookOptions<GetLocationsQuery, GetLocationsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLocationsQuery, GetLocationsQueryVariables>(GetLocationsDocument, options);
-      }
-export function useGetLocationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLocationsQuery, GetLocationsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLocationsQuery, GetLocationsQueryVariables>(GetLocationsDocument, options);
-        }
-export function useGetLocationsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLocationsQuery, GetLocationsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetLocationsQuery, GetLocationsQueryVariables>(GetLocationsDocument, options);
-        }
-export type GetLocationsQueryHookResult = ReturnType<typeof useGetLocationsQuery>;
-export type GetLocationsLazyQueryHookResult = ReturnType<typeof useGetLocationsLazyQuery>;
-export type GetLocationsSuspenseQueryHookResult = ReturnType<typeof useGetLocationsSuspenseQuery>;
-export type GetLocationsQueryResult = Apollo.QueryResult<GetLocationsQuery, GetLocationsQueryVariables>;
+export function useGetLocationsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetLocationsQuery,
+    GetLocationsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetLocationsQuery, GetLocationsQueryVariables>(
+    GetLocationsDocument,
+    options,
+  );
+}
+export function useGetLocationsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLocationsQuery,
+    GetLocationsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetLocationsQuery, GetLocationsQueryVariables>(
+    GetLocationsDocument,
+    options,
+  );
+}
+export function useGetLocationsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetLocationsQuery,
+        GetLocationsQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetLocationsQuery, GetLocationsQueryVariables>(
+    GetLocationsDocument,
+    options,
+  );
+}
+export type GetLocationsQueryHookResult = ReturnType<
+  typeof useGetLocationsQuery
+>;
+export type GetLocationsLazyQueryHookResult = ReturnType<
+  typeof useGetLocationsLazyQuery
+>;
+export type GetLocationsSuspenseQueryHookResult = ReturnType<
+  typeof useGetLocationsSuspenseQuery
+>;
+export type GetLocationsQueryResult = Apollo.QueryResult<
+  GetLocationsQuery,
+  GetLocationsQueryVariables
+>;

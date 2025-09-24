@@ -1,27 +1,38 @@
-import * as Types from '../../types/base-types';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import * as Types from "../../types/base-types";
 const defaultOptions = {} as const;
-export type GetEpisodesQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetEpisodesQueryVariables = Types.Exact<{ [key: string]: never }>;
 
-
-export type GetEpisodesQuery = { episodes?: { results?: Array<{ air_date?: string | null, created?: string | null, episode?: string | null, id?: string | null, name?: string | null } | null> | null } | null };
-
+export type GetEpisodesQuery = {
+  __typename?: "Query";
+  episodes?: {
+    __typename?: "Episodes";
+    results?: Array<{
+      __typename?: "Episode";
+      air_date?: string | null;
+      created?: string | null;
+      episode?: string | null;
+      id?: string | null;
+      name?: string | null;
+    } | null> | null;
+  } | null;
+};
 
 export const GetEpisodesDocument = gql`
-    query GetEpisodes {
-  episodes {
-    results {
-      air_date
-      created
-      episode
-      id
-      name
+  query GetEpisodes {
+    episodes {
+      results {
+        air_date
+        created
+        episode
+        id
+        name
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetEpisodesQuery__
@@ -38,19 +49,55 @@ export const GetEpisodesDocument = gql`
  *   },
  * });
  */
-export function useGetEpisodesQuery(baseOptions?: Apollo.QueryHookOptions<GetEpisodesQuery, GetEpisodesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetEpisodesQuery, GetEpisodesQueryVariables>(GetEpisodesDocument, options);
-      }
-export function useGetEpisodesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetEpisodesQuery, GetEpisodesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetEpisodesQuery, GetEpisodesQueryVariables>(GetEpisodesDocument, options);
-        }
-export function useGetEpisodesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetEpisodesQuery, GetEpisodesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetEpisodesQuery, GetEpisodesQueryVariables>(GetEpisodesDocument, options);
-        }
+export function useGetEpisodesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetEpisodesQuery,
+    GetEpisodesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetEpisodesQuery, GetEpisodesQueryVariables>(
+    GetEpisodesDocument,
+    options,
+  );
+}
+export function useGetEpisodesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetEpisodesQuery,
+    GetEpisodesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetEpisodesQuery, GetEpisodesQueryVariables>(
+    GetEpisodesDocument,
+    options,
+  );
+}
+export function useGetEpisodesSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetEpisodesQuery,
+        GetEpisodesQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetEpisodesQuery, GetEpisodesQueryVariables>(
+    GetEpisodesDocument,
+    options,
+  );
+}
 export type GetEpisodesQueryHookResult = ReturnType<typeof useGetEpisodesQuery>;
-export type GetEpisodesLazyQueryHookResult = ReturnType<typeof useGetEpisodesLazyQuery>;
-export type GetEpisodesSuspenseQueryHookResult = ReturnType<typeof useGetEpisodesSuspenseQuery>;
-export type GetEpisodesQueryResult = Apollo.QueryResult<GetEpisodesQuery, GetEpisodesQueryVariables>;
+export type GetEpisodesLazyQueryHookResult = ReturnType<
+  typeof useGetEpisodesLazyQuery
+>;
+export type GetEpisodesSuspenseQueryHookResult = ReturnType<
+  typeof useGetEpisodesSuspenseQuery
+>;
+export type GetEpisodesQueryResult = Apollo.QueryResult<
+  GetEpisodesQuery,
+  GetEpisodesQueryVariables
+>;

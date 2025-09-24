@@ -1,30 +1,44 @@
-import * as Types from '../../types/base-types';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import * as Types from "../../types/base-types";
 const defaultOptions = {} as const;
-export type GetCharactersQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetCharactersQueryVariables = Types.Exact<{ [key: string]: never }>;
 
-
-export type GetCharactersQuery = { characters?: { results?: Array<{ created?: string | null, gender?: string | null, id?: string | null, image?: string | null, name?: string | null, species?: string | null, status?: string | null, type?: string | null } | null> | null } | null };
-
+export type GetCharactersQuery = {
+  __typename?: "Query";
+  characters?: {
+    __typename?: "Characters";
+    results?: Array<{
+      __typename?: "Character";
+      created?: string | null;
+      gender?: string | null;
+      id?: string | null;
+      image?: string | null;
+      name?: string | null;
+      species?: string | null;
+      status?: string | null;
+      type?: string | null;
+    } | null> | null;
+  } | null;
+};
 
 export const GetCharactersDocument = gql`
-    query GetCharacters {
-  characters {
-    results {
-      created
-      gender
-      id
-      image
-      name
-      species
-      status
-      type
+  query GetCharacters {
+    characters {
+      results {
+        created
+        gender
+        id
+        image
+        name
+        species
+        status
+        type
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetCharactersQuery__
@@ -41,19 +55,57 @@ export const GetCharactersDocument = gql`
  *   },
  * });
  */
-export function useGetCharactersQuery(baseOptions?: Apollo.QueryHookOptions<GetCharactersQuery, GetCharactersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCharactersQuery, GetCharactersQueryVariables>(GetCharactersDocument, options);
-      }
-export function useGetCharactersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCharactersQuery, GetCharactersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCharactersQuery, GetCharactersQueryVariables>(GetCharactersDocument, options);
-        }
-export function useGetCharactersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetCharactersQuery, GetCharactersQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetCharactersQuery, GetCharactersQueryVariables>(GetCharactersDocument, options);
-        }
-export type GetCharactersQueryHookResult = ReturnType<typeof useGetCharactersQuery>;
-export type GetCharactersLazyQueryHookResult = ReturnType<typeof useGetCharactersLazyQuery>;
-export type GetCharactersSuspenseQueryHookResult = ReturnType<typeof useGetCharactersSuspenseQuery>;
-export type GetCharactersQueryResult = Apollo.QueryResult<GetCharactersQuery, GetCharactersQueryVariables>;
+export function useGetCharactersQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetCharactersQuery,
+    GetCharactersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetCharactersQuery, GetCharactersQueryVariables>(
+    GetCharactersDocument,
+    options,
+  );
+}
+export function useGetCharactersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCharactersQuery,
+    GetCharactersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetCharactersQuery, GetCharactersQueryVariables>(
+    GetCharactersDocument,
+    options,
+  );
+}
+export function useGetCharactersSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetCharactersQuery,
+        GetCharactersQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetCharactersQuery,
+    GetCharactersQueryVariables
+  >(GetCharactersDocument, options);
+}
+export type GetCharactersQueryHookResult = ReturnType<
+  typeof useGetCharactersQuery
+>;
+export type GetCharactersLazyQueryHookResult = ReturnType<
+  typeof useGetCharactersLazyQuery
+>;
+export type GetCharactersSuspenseQueryHookResult = ReturnType<
+  typeof useGetCharactersSuspenseQuery
+>;
+export type GetCharactersQueryResult = Apollo.QueryResult<
+  GetCharactersQuery,
+  GetCharactersQueryVariables
+>;

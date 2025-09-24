@@ -1,0 +1,16 @@
+ mutation CreateCharacter($input: CreateCharacterInput!) {
+  createCharacter(input: $input) {
+    character {
+      id
+      name
+      status
+      species
+      type
+      gender
+      image
+      created
+    }
+    success
+    message
+  }
+}

@@ -8,7 +8,9 @@ export type GetCharacterQueryVariables = Types.Exact<{
 }>;
 
 export type GetCharacterQuery = {
+  __typename?: "Query";
   character?: {
+    __typename?: "Character";
     created?: string | null;
     gender?: string | null;
     id?: string | null;
@@ -17,6 +19,30 @@ export type GetCharacterQuery = {
     species?: string | null;
     status?: string | null;
     type?: string | null;
+    location?: {
+      __typename?: "Location";
+      created?: string | null;
+      dimension?: string | null;
+      id?: string | null;
+      name?: string | null;
+      type?: string | null;
+    } | null;
+    episode: Array<{
+      __typename?: "Episode";
+      air_date?: string | null;
+      created?: string | null;
+      episode?: string | null;
+      id?: string | null;
+      name?: string | null;
+    } | null>;
+    origin?: {
+      __typename?: "Location";
+      created?: string | null;
+      dimension?: string | null;
+      id?: string | null;
+      name?: string | null;
+      type?: string | null;
+    } | null;
   } | null;
 };
 
@@ -31,6 +57,27 @@ export const GetCharacterDocument = gql`
       species
       status
       type
+      location {
+        created
+        dimension
+        id
+        name
+        type
+      }
+      episode {
+        air_date
+        created
+        episode
+        id
+        name
+      }
+      origin {
+        created
+        dimension
+        id
+        name
+        type
+      }
     }
   }
 `;

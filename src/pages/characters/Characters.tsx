@@ -1,13 +1,16 @@
 import "./index.css";
 
-import { Card, Row, Spin } from "antd";
+import { Button, Card, Col, Row, Spin } from "antd";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useGetCharactersQuery } from "./characters.generated";
+import CreateNewCharacterModal from "./CreateNewCharacterModal";
 const { Meta } = Card;
 
 const Characters = () => {
   const { data, loading } = useGetCharactersQuery();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   if (loading) {
     return (
@@ -22,33 +25,61 @@ const Characters = () => {
   }
 
   return (
-    <Row className="characters-page">
-      {data?.characters?.results?.map((character) => (
-        <Link
-          to={`/character/${character?.id}`}
-          key={character?.id}
-          className="character-link">
-          <Card
-            hoverable
-            className="character-card"
-            cover={
-              <img alt="character-img" src={character?.image || undefined} />
-            }>
-            <Meta
-              title={character?.name}
-              description={
-                <>
-                  <p>Sex: {character?.gender}</p>
-                  <p>Species: {character?.species}</p>
-                  <p>Status: {character?.status}</p>
-                  <p>Type: {character?.type}</p>
-                </>
-              }
-            />
-          </Card>
-        </Link>
-      ))}
-    </Row>
+    <>
+      <div
+        style={{
+          textAlign: "center",
+          marginBottom: "20px",
+          marginTop: "20px",
+        }}>
+        <Button
+          type="primary"
+          size="large"
+          onClick={() => setIsModalVisible(true)}
+          style={{
+            background: "#fff",
+            borderColor: "#fff",
+            color: "#000",
+          }}>
+          Create New Character
+        </Button>
+      </div>
+
+      <Row className="characters-page" gutter={[24, 24]}>
+        {data?.characters?.results?.map((character) => (
+          <Col key={character?.id} xs={24} sm={12} md={8} lg={6} xl={4}>
+            <Link to={`/character/${character?.id}`} className="character-link">
+              <Card
+                hoverable
+                className="character-card"
+                cover={
+                  <img
+                    alt="character-img"
+                    src={character?.image || undefined}
+                    className="character-card__cover"
+                  />
+                }>
+                <Meta
+                  title={character?.name}
+                  description={
+                    <div className="character-card__desc">
+                      <p>Sex: {character?.gender}</p>
+                      <p>Species: {character?.species}</p>
+                      <p>Status: {character?.status}</p>
+                      <p>Type: {character?.type}</p>
+                    </div>
+                  }
+                />
+              </Card>
+            </Link>
+          </Col>
+        ))}
+      </Row>
+      <CreateNewCharacterModal
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
+    </>
   );
 };
 
